@@ -12,23 +12,24 @@ import com.bangkit.navomobility.ui.screen.presentation.onboarding.OnBoardingScre
 import com.bangkit.navomobility.ui.screen.signup.SignUpScreen
 
 @Composable
-fun NavoMobilityApp (){
+fun NavoMobilityApp() {
     Surface(
         modifier = Modifier.fillMaxSize(),
     ) {
         Crossfade(targetState = NavoMobilityAppRouter.currentScreen, label = "") { currentState ->
-            when(currentState.value) {
+            when (currentState.value) {
                 is Screen.OnBoardingScreen -> {
-                    OnBoardingScreen(navigateToLogin = {})
+                    OnBoardingScreen(
+                        navigateToLogin = { NavoMobilityAppRouter.navigateTo(Screen.LoginScreen) }
+                    )
                 }
                 is Screen.SignUpScreen -> {
-                    SignUpScreen()
+                    SignUpScreen(onBackClick = { NavoMobilityAppRouter.navigateTo(Screen.LoginScreen) })
                 }
                 is Screen.LoginScreen -> {
-                    LoginScreen()
+                    LoginScreen(onBackClick = { NavoMobilityAppRouter.navigateTo(Screen.OnBoardingScreen) })
                 }
             }
-
         }
     }
 }

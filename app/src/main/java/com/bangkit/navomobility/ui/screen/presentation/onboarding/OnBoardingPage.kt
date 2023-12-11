@@ -34,6 +34,7 @@ fun OnBoardingPage(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.primary)
     ) {
+        Spacer(modifier = Modifier.height(100.dp))
         Image(
             modifier = Modifier
                 .size(312.dp, 312.dp),
@@ -41,7 +42,15 @@ fun OnBoardingPage(
             contentDescription = null,
             contentScale = ContentScale.FillWidth
         )
-        Spacer(modifier = Modifier.height(49.dp))
+        Spacer(modifier = Modifier.height(34.dp))
+        Text(
+            text = page.title,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(horizontal = 32.dp),
+            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
+            color = MaterialTheme.colorScheme.onPrimary
+        )
+        Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = page.description,
             textAlign = TextAlign.Center,

@@ -23,14 +23,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.bangkit.navomobility.ui.components.OnBoardingButton
 import com.bangkit.navomobility.ui.components.OnBoardingTextButton
-import com.bangkit.navomobility.ui.components.PageIndicator
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnBoardingScreen() {
+fun OnBoardingScreen(
+    navigateToLogin: () -> Unit
+) {
     Column (
-        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.primary)
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.primary)
     ) {
         val pagerState = rememberPagerState { 3 }
 
@@ -57,14 +60,6 @@ fun OnBoardingScreen() {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            PageIndicator(
-                modifier = Modifier.width(16.dp),
-                pageSize = pages.size,
-                selectedPage = pagerState.currentPage
-            )
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
                 val scope = rememberCoroutineScope()
                 if (buttonState.value[0].isNotEmpty()) {
                     OnBoardingTextButton(
@@ -76,12 +71,13 @@ fun OnBoardingScreen() {
                         }
                     )
                 }
+                Spacer(modifier = Modifier.width(16.dp))
                 OnBoardingButton(
                     text = buttonState.value[1],
                     onClick = {
                         scope.launch {
                             if (pagerState.currentPage == 2) {
-                                // TODO: navigate to Login Screen
+                                navigateToLogin()
                             } else {
                                 pagerState.animateScrollToPage(
                                     page = pagerState.currentPage + 1
@@ -91,7 +87,6 @@ fun OnBoardingScreen() {
                     }
                 )
             }
-            Spacer(modifier = Modifier.weight(0.25f))
+            Spacer(modifier = Modifier.width(16.dp))
         }
     }
-}
