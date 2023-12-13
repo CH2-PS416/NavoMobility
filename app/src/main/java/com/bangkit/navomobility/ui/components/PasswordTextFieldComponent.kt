@@ -28,7 +28,7 @@ import com.bangkit.navomobility.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PasswordTextFieldComponent(labelValue: String, painter: Painter) {
+fun PasswordTextFieldComponent(labelValue: String, painter: Painter, onTextSelected: (String) -> Unit) {
 
     val password = remember {
         mutableStateOf("")
@@ -53,6 +53,7 @@ fun PasswordTextFieldComponent(labelValue: String, painter: Painter) {
         value = password.value,
         onValueChange = {
             password.value = it
+            onTextSelected(it)
         },
         leadingIcon = {
             Icon(painter = painter, contentDescription = "")
@@ -64,7 +65,7 @@ fun PasswordTextFieldComponent(labelValue: String, painter: Painter) {
                 Icons.Filled.VisibilityOff
             }
 
-            var description = if (passwordVisible.value) {
+            val description = if (passwordVisible.value) {
                 stringResource(id = R.string.hide_password)
             } else {
                 stringResource(id = R.string.show_password)

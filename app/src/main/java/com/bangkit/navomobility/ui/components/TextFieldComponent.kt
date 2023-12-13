@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.painter.Painter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextFieldComponent(labelValue: String, painter: Painter) {
+fun TextFieldComponent(labelValue: String, painter: Painter, onTextSelected: (String) -> Unit) {
 
     val textValue = remember {
         mutableStateOf("")
@@ -40,6 +40,7 @@ fun TextFieldComponent(labelValue: String, painter: Painter) {
         value = textValue.value,
         onValueChange = {
             textValue.value = it
+            onTextSelected(it)
         },
         leadingIcon = {
             Icon(painter = painter, contentDescription = "")

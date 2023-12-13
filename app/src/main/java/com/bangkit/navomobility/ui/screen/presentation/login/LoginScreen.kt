@@ -1,4 +1,4 @@
-package com.bangkit.navomobility.ui.screen.login
+package com.bangkit.navomobility.ui.screen.presentation.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -34,8 +34,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bangkit.navomobility.R
 import com.bangkit.navomobility.ui.components.ButtonComponent
@@ -45,12 +43,13 @@ import com.bangkit.navomobility.ui.components.PasswordTextFieldComponent
 import com.bangkit.navomobility.ui.components.SocialMediaLogin
 import com.bangkit.navomobility.ui.navigation.NavoMobilityAppRouter
 import com.bangkit.navomobility.ui.navigation.Screen
-import com.bangkit.navomobility.ui.theme.NavoMobilityTheme
+import com.bangkit.navomobility.ui.screen.presentation.signup.UIEvent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    loginViewModel: LoginViewModel
 ) {
     var enteredEmail by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
@@ -102,6 +101,9 @@ fun LoginScreen(
                 },
                 onInvalidFormat = {
                     errorMessage = "Email harus berakhir dengan @gmail.com"
+                },
+                onTextSelected = {
+                    loginViewModel.onEvent(UIEvent.EmailChanged(it))
                 }
             )
             errorMessage?.let { message ->
@@ -113,7 +115,10 @@ fun LoginScreen(
             }
             PasswordTextFieldComponent(
                 labelValue = stringResource(id = R.string.password),
-                painterResource(id = R.drawable.ic_password)
+                painterResource(id = R.drawable.ic_password),
+                onTextSelected = {
+                    loginViewModel.onEvent(UIEvent.PasswordChanged(it))
+                }
             )
             Spacer(modifier = Modifier.height(16.dp))
             ClickableTextComponent(
@@ -124,7 +129,12 @@ fun LoginScreen(
                 }
             )
             Spacer(modifier = Modifier.height(34.dp))
-            ButtonComponent(value = stringResource(id = R.string.login_button))
+            ButtonComponent(
+                value = stringResource(id = R.string.login_button),
+                onButtonClicked = {
+                    loginViewModel.onEvent(UIEvent.LoginButtonClicked)
+                }
+            )
             Spacer(modifier = Modifier.height(16.dp))
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -154,16 +164,5 @@ fun LoginScreen(
                 }
             }
         }
-//        BackButtonHandler {
-//            NavoMobilityAppRouter.navigateTo(Screen.OnBoardingScreen)
-//        }
-    }
-}
-
-@Preview(showBackground = true, device = Devices.PIXEL_4)
-@Composable
-fun LoginScreenPreview() {
-    NavoMobilityTheme {
-        LoginScreen(onBackClick = {})
     }
 }

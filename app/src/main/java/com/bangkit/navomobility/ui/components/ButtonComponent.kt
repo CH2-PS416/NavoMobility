@@ -19,9 +19,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ButtonComponent(value: String) {
+fun ButtonComponent(
+    value: String, onButtonClicked : () -> Unit
+) {
     Button(
-        onClick = { /*TODO*/ },
+        onClick = { onButtonClicked.invoke() },
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(48.dp),

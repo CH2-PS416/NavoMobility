@@ -1,4 +1,4 @@
-package com.bangkit.navomobility.ui.screen.signup
+package com.bangkit.navomobility.ui.screen.presentation.signup
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,8 +34,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bangkit.navomobility.R
 import com.bangkit.navomobility.ui.components.ButtonComponent
@@ -50,9 +48,10 @@ import com.bangkit.navomobility.ui.theme.NavoMobilityTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignUpScreen(
+fun RegisterScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
+    registerViewModel: RegisterViewModel
 ) {
     var enteredEmail by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
@@ -101,7 +100,10 @@ fun SignUpScreen(
                 )
                 TextFieldComponent(
                     labelValue = stringResource(id = R.string.name),
-                    painterResource(id = R.drawable.ic_person)
+                    painterResource(id = R.drawable.ic_person),
+                    onTextSelected = {
+                        registerViewModel.onEvent(UIEvent.NameChanged(it))
+                    }
                 )
                 EmailTextFieldComponent(
                     onValueChanged = {
@@ -110,6 +112,9 @@ fun SignUpScreen(
                     },
                     onInvalidFormat = {
                         errorMessage = "Email harus berakhir dengan @gmail.com"
+                    },
+                    onTextSelected = {
+                        registerViewModel.onEvent(UIEvent.EmailChanged(it))
                     }
                 )
                 errorMessage?.let { message ->
@@ -121,7 +126,10 @@ fun SignUpScreen(
                 }
                 PasswordTextFieldComponent(
                     labelValue = stringResource(id = R.string.password),
-                    painterResource(id = R.drawable.ic_password)
+                    painterResource(id = R.drawable.ic_password),
+                    onTextSelected = {
+                        registerViewModel.onEvent(UIEvent.PasswordChanged(it))
+                    }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 ClickableTextComponent(
@@ -132,7 +140,12 @@ fun SignUpScreen(
                     }
                 )
                 Spacer(modifier = modifier.height(34.dp))
-                ButtonComponent(value = stringResource(id = R.string.register_button))
+                ButtonComponent(
+                    value = stringResource(id = R.string.register_button),
+                    onButtonClicked = {
+                        registerViewModel.onEvent(UIEvent.RegisterButtonClicked)
+                    }
+                )
                 Spacer(modifier = modifier.height(16.dp))
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -162,17 +175,6 @@ fun SignUpScreen(
                     }
                 }
             }
-//        BackButtonHandler {
-//            NavoMobilityAppRouter.navigateTo(Screen.OnBoardingScreen)
-//        }
         }
-    }
-}
-
-@Preview(showBackground = true, device = Devices.PIXEL_4)
-@Composable
-fun SignUpScreenPreview() {
-    NavoMobilityTheme {
-        SignUpScreen(onBackClick = {})
     }
 }
