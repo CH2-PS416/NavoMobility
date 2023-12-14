@@ -17,7 +17,8 @@ import androidx.compose.ui.text.input.KeyboardType
 fun EmailTextFieldComponent(
     onValueChanged: (String) -> Unit,
     onInvalidFormat: () -> Unit,
-    onTextSelected: (String) -> Unit
+    onTextSelected: (String) -> Unit,
+    errorStatus: Boolean = false
 ) {
     var emailText by remember { mutableStateOf("") }
 
@@ -46,5 +47,6 @@ fun EmailTextFieldComponent(
             .fillMaxWidth()
             .clip(MaterialTheme.shapes.small)
             .background(Color.White),
+        isError = !errorStatus
     )
 }
