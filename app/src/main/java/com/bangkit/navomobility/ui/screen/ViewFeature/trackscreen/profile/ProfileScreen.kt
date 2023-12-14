@@ -21,8 +21,7 @@ fun ProfileScreen() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "PROFILE",
-            fontSize = 24.sp, // Ganti dengan ukuran yang diinginkan
+            text = "PROFILE",            fontSize = 24.sp, // Ganti dengan ukuran yang diinginkan
             fontWeight = FontWeight.Bold,
             color = Color.White
         )
