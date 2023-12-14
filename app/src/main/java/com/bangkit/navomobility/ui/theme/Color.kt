@@ -61,3 +61,9 @@ val md_theme_dark_inversePrimary = Color(0xFF2D59BB)
 val md_theme_dark_surfaceTint = Color(0xFFB2C5FF)
 val md_theme_dark_outlineVariant = Color(0xFF45464F)
 val md_theme_dark_scrim = Color(0xFF000000)
+
+//ForTrackNavigation
+val Purple200 = Color(0xFFBB86FC)
+val Purple500 = Color(0xFF6200EE)
+val Purple700 = Color(0xFF3700B3)
+val Teal200 = Color(0xFF03DAC5)
