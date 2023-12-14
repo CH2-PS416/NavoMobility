@@ -1,4 +1,4 @@
-package com.bangkit.navomobility.ui.screen.presentation.login
+package com.bangkit.navomobility.ui.screen.login
 
 data class LoginUIState(
     var email: String = "",

@@ -1,4 +1,4 @@
-package com.bangkit.navomobility.ui.screen.presentation.login
+package com.bangkit.navomobility.ui.screen.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -43,7 +43,7 @@ import com.bangkit.navomobility.ui.components.PasswordTextFieldComponent
 import com.bangkit.navomobility.ui.components.SocialMediaLogin
 import com.bangkit.navomobility.ui.navigation.NavoMobilityAppRouter
 import com.bangkit.navomobility.ui.navigation.Screen
-import com.bangkit.navomobility.ui.screen.presentation.signup.UIEvent
+import com.bangkit.navomobility.ui.screen.signup.UIEvent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

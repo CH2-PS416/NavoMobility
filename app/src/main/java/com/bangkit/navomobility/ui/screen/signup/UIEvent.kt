@@ -1,4 +1,4 @@
-package com.bangkit.navomobility.ui.screen.presentation.signup
+package com.bangkit.navomobility.ui.screen.signup
 
 sealed class UIEvent{
 

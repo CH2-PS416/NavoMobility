@@ -1,9 +1,9 @@
-package com.bangkit.navomobility.ui.screen.presentation.login
+package com.bangkit.navomobility.ui.screen.login
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.bangkit.navomobility.ui.screen.presentation.signup.UIEvent
+import com.bangkit.navomobility.ui.screen.signup.UIEvent
 
 class LoginViewModel() : ViewModel(){
 
