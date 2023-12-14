@@ -3,47 +3,96 @@ package com.bangkit.navomobility.ui.screen.signup
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterViewModel() : ViewModel(){
 
     private var TAG = RegisterViewModel::class.simpleName
-    private var registrationUIState = mutableStateOf(RegisterUIState())
+    var registrationUIState = mutableStateOf(RegisterUIState())
+    var allValidationPassed = mutableStateOf(false)
 
-    fun onEvent(event: UIEvent) {
+    fun onEvent(event: RegisterUIEvent) {
         when (event) {
-            is UIEvent.NameChanged -> {
+            is RegisterUIEvent.NameChanged -> {
                 registrationUIState.value = registrationUIState.value.copy(
-                    email = event.name
+                    name = event.name
                 )
+                validateDataWithRules()
                 printState()
             }
-            is UIEvent.EmailChanged -> {
+            is RegisterUIEvent.EmailChanged -> {
                 registrationUIState.value = registrationUIState.value.copy(
                     email = event.email
                 )
+                validateDataWithRules()
                 printState()
             }
-            is UIEvent.PasswordChanged -> {
+            is RegisterUIEvent.PasswordChanged -> {
                 registrationUIState.value = registrationUIState.value.copy(
                     password = event.password
                 )
+                validateDataWithRules()
                 printState()
             }
-            is UIEvent.RegisterButtonClicked -> {
+            is RegisterUIEvent.RegisterButtonClicked -> {
                 register()
             }
-
-            else -> {}
         }
     }
 
     private fun register() {
         Log.d(TAG, "inside_signUp")
         printState()
+        createUserInFirebase(
+            email = registrationUIState.value.email,
+            password = registrationUIState.value.password
+        )
+    }
+
+    private fun validateDataWithRules() {
+        val nameResult = Validator.validateName(
+            name = registrationUIState.value.name
+        )
+
+        val emailResult = Validator.validateEmail(
+            email = registrationUIState.value.email
+        )
+
+        val passwordResult = Validator.validatePassword(
+            password = registrationUIState.value.password
+        )
+
+        Log.d(TAG, "Inside_validateDataWithRules")
+        Log.d(TAG, "nameResult = $nameResult")
+        Log.d(TAG, "emailResult = $emailResult")
+        Log.d(TAG, "passwordResult = $passwordResult")
+
+        registrationUIState.value = registrationUIState.value.copy(
+            nameError = nameResult.status,
+            emailError = emailResult.status,
+            passwordError = passwordResult.status
+        )
+
+        allValidationPassed.value = nameResult.status && emailResult.status && passwordResult.status
     }
 
     private fun printState() {
         Log.d(TAG, "inside_printState")
         Log.d(TAG, registrationUIState.value.toString())
+    }
+
+    private fun createUserInFirebase(email: String, password: String) {
+        FirebaseAuth
+            .getInstance()
+            .createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+                Log.d(TAG, "Inside_OnCompleteListener")
+                Log.d(TAG, "isSuccessful = ${it.isSuccessful}")
+            }
+            .addOnFailureListener {
+                Log.d(TAG, "Inside_OnFailureListener")
+                Log.d(TAG, "Exception = ${it.message}")
+                Log.d(TAG, "Exception = ${it.localizedMessage}")
+            }
     }
 }

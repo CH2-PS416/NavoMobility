@@ -102,8 +102,9 @@ fun RegisterScreen(
                     labelValue = stringResource(id = R.string.name),
                     painterResource(id = R.drawable.ic_person),
                     onTextSelected = {
-                        registerViewModel.onEvent(UIEvent.NameChanged(it))
-                    }
+                        registerViewModel.onEvent(RegisterUIEvent.NameChanged(it))
+                    },
+                    errorStatus = registerViewModel.registrationUIState.value.nameError
                 )
                 EmailTextFieldComponent(
                     onValueChanged = {
@@ -114,8 +115,9 @@ fun RegisterScreen(
                         errorMessage = "Email harus berakhir dengan @gmail.com"
                     },
                     onTextSelected = {
-                        registerViewModel.onEvent(UIEvent.EmailChanged(it))
-                    }
+                        registerViewModel.onEvent(RegisterUIEvent.EmailChanged(it))
+                    },
+                    errorStatus = registerViewModel.registrationUIState.value.emailError
                 )
                 errorMessage?.let { message ->
                     Text(
@@ -128,8 +130,9 @@ fun RegisterScreen(
                     labelValue = stringResource(id = R.string.password),
                     painterResource(id = R.drawable.ic_password),
                     onTextSelected = {
-                        registerViewModel.onEvent(UIEvent.PasswordChanged(it))
-                    }
+                        registerViewModel.onEvent(RegisterUIEvent.PasswordChanged(it))
+                    },
+                    errorStatus = registerViewModel.registrationUIState.value.passwordError
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 ClickableTextComponent(
@@ -143,8 +146,9 @@ fun RegisterScreen(
                 ButtonComponent(
                     value = stringResource(id = R.string.register_button),
                     onButtonClicked = {
-                        registerViewModel.onEvent(UIEvent.RegisterButtonClicked)
-                    }
+                        registerViewModel.onEvent(RegisterUIEvent.RegisterButtonClicked)
+                    },
+                    isEnabled = registerViewModel.allValidationPassed.value
                 )
                 Spacer(modifier = modifier.height(16.dp))
                 Column(

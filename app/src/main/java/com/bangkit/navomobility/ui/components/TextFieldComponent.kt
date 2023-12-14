@@ -19,7 +19,12 @@ import androidx.compose.ui.graphics.painter.Painter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextFieldComponent(labelValue: String, painter: Painter, onTextSelected: (String) -> Unit) {
+fun TextFieldComponent(
+    labelValue: String,
+    painter: Painter,
+    onTextSelected: (String) -> Unit,
+    errorStatus: Boolean
+) {
 
     val textValue = remember {
         mutableStateOf("")
@@ -44,6 +49,7 @@ fun TextFieldComponent(labelValue: String, painter: Painter, onTextSelected: (St
         },
         leadingIcon = {
             Icon(painter = painter, contentDescription = "")
-        }
+        },
+        isError = !errorStatus
     )
 }

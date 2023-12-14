@@ -20,7 +20,9 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun ButtonComponent(
-    value: String, onButtonClicked : () -> Unit
+    value: String,
+    onButtonClicked : () -> Unit,
+    isEnabled: Boolean
 ) {
     Button(
         onClick = { onButtonClicked.invoke() },
