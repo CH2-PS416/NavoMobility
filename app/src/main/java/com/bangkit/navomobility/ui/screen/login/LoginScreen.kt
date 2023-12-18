@@ -43,7 +43,6 @@ import com.bangkit.navomobility.ui.components.PasswordTextFieldComponent
 import com.bangkit.navomobility.ui.components.SocialMediaLogin
 import com.bangkit.navomobility.ui.navigation.NavoMobilityAppRouter
 import com.bangkit.navomobility.ui.navigation.Screen
-import com.bangkit.navomobility.ui.screen.signup.UIEvent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -103,8 +102,9 @@ fun LoginScreen(
                     errorMessage = "Email harus berakhir dengan @gmail.com"
                 },
                 onTextSelected = {
-                    loginViewModel.onEvent(UIEvent.EmailChanged(it))
-                }
+                    loginViewModel.onEvent(LoginUIEvent.EmailChanged(it))
+                },
+                errorStatus = loginViewModel.loginUIState.value.emailError
             )
             errorMessage?.let { message ->
                 Text(
@@ -117,8 +117,9 @@ fun LoginScreen(
                 labelValue = stringResource(id = R.string.password),
                 painterResource(id = R.drawable.ic_password),
                 onTextSelected = {
-                    loginViewModel.onEvent(UIEvent.PasswordChanged(it))
-                }
+                    loginViewModel.onEvent(LoginUIEvent.PasswordChanged(it))
+                },
+                errorStatus = loginViewModel.loginUIState.value.passwordError
             )
             Spacer(modifier = Modifier.height(16.dp))
             ClickableTextComponent(
@@ -132,8 +133,9 @@ fun LoginScreen(
             ButtonComponent(
                 value = stringResource(id = R.string.login_button),
                 onButtonClicked = {
-                    loginViewModel.onEvent(UIEvent.LoginButtonClicked)
-                }
+                    loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
+                },
+                isEnabled = loginViewModel.allValidationPassed.value
             )
             Spacer(modifier = Modifier.height(16.dp))
             Column(

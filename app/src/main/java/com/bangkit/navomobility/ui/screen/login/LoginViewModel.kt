@@ -3,38 +3,62 @@ package com.bangkit.navomobility.ui.screen.login
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.bangkit.navomobility.ui.screen.signup.UIEvent
 
 class LoginViewModel() : ViewModel(){
 
     private var TAG = LoginViewModel::class.simpleName
-    private var loginUIState = mutableStateOf(LoginUIState())
+    var loginUIState = mutableStateOf(LoginUIState())
+    var allValidationPassed = mutableStateOf(false)
 
-    fun onEvent(event: UIEvent) {
+    fun onEvent(event: LoginUIEvent) {
         when (event) {
-            is UIEvent.EmailChanged -> {
+            is LoginUIEvent.EmailChanged -> {
                 loginUIState.value = loginUIState.value.copy(
                     email = event.email
                 )
+                validateDataWithRules()
                 printState()
             }
-            is UIEvent.PasswordChanged -> {
+            is LoginUIEvent.PasswordChanged -> {
                 loginUIState.value = loginUIState.value.copy(
                     password = event.password
                 )
+                validateDataWithRules()
                 printState()
             }
-            is UIEvent.LoginButtonClicked -> {
-                register()
+            is LoginUIEvent.LoginButtonClicked -> {
+                login()
             }
-
-            else -> {}
         }
     }
 
-    private fun register() {
+    private fun login() {
         Log.d(TAG, "inside_login")
         printState()
+
+        validateDataWithRules()
+    }
+
+    private fun validateDataWithRules() {
+
+        val emailResult = Validator.validateEmail(
+            email = loginUIState.value.email
+        )
+
+        val passwordResult = Validator.validatePassword(
+            password = loginUIState.value.password
+        )
+
+        Log.d(TAG, "Inside_validateDataWithRules")
+        Log.d(TAG, "emailResult = $emailResult")
+        Log.d(TAG, "passwordResult = $passwordResult")
+
+        loginUIState.value = loginUIState.value.copy(
+            emailError = emailResult.status,
+            passwordError = passwordResult.status
+        )
+
+        allValidationPassed.value = emailResult.status && passwordResult.status
     }
 
     private fun printState() {

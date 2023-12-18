@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.bangkit.navomobility.ui.navigation.NavoMobilityAppRouter
 import com.bangkit.navomobility.ui.navigation.Screen
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 
 class RegisterViewModel() : ViewModel(){
 
@@ -105,5 +106,22 @@ class RegisterViewModel() : ViewModel(){
                 Log.d(TAG, "Exception = ${it.message}")
                 Log.d(TAG, "Exception = ${it.localizedMessage}")
             }
+    }
+
+    fun logout() {
+        val firebaseAuth = FirebaseAuth.getInstance()
+
+        firebaseAuth.signOut()
+
+        val authStateListener = AuthStateListener {
+            if (it.currentUser == null) {
+                Log.d(TAG, "Inside sign out success")
+                NavoMobilityAppRouter.navigateTo(Screen.LoginScreen)
+            } else {
+                Log.d(TAG, "Inside sign out is not complete")
+            }
+        }
+
+        firebaseAuth.addAuthStateListener(authStateListener)
     }
 }
