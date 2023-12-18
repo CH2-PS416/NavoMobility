@@ -1,4 +1,4 @@
-package com.bangkit.navomobility.ui.screen.signup
+package com.bangkit.navomobility.ui.screen.register
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

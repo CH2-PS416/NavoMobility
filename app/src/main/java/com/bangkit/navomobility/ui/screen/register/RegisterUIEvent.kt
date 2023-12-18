@@ -1,4 +1,4 @@
-package com.bangkit.navomobility.ui.screen.signup
+package com.bangkit.navomobility.ui.screen.register
 
 sealed class RegisterUIEvent{
 

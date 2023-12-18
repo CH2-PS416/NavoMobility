@@ -1,4 +1,4 @@
-package com.bangkit.navomobility.ui.screen.signup
+package com.bangkit.navomobility.ui.screen.register
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
