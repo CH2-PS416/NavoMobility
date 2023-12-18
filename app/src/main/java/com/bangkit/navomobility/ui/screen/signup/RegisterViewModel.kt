@@ -3,6 +3,8 @@ package com.bangkit.navomobility.ui.screen.signup
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.bangkit.navomobility.ui.navigation.NavoMobilityAppRouter
+import com.bangkit.navomobility.ui.navigation.Screen
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterViewModel() : ViewModel(){
@@ -10,6 +12,7 @@ class RegisterViewModel() : ViewModel(){
     private var TAG = RegisterViewModel::class.simpleName
     var registrationUIState = mutableStateOf(RegisterUIState())
     var allValidationPassed = mutableStateOf(false)
+    var registerInProgress = mutableStateOf(false)
 
     fun onEvent(event: RegisterUIEvent) {
         when (event) {
@@ -82,12 +85,20 @@ class RegisterViewModel() : ViewModel(){
     }
 
     private fun createUserInFirebase(email: String, password: String) {
+
+        registerInProgress.value = true
+
         FirebaseAuth
             .getInstance()
             .createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 Log.d(TAG, "Inside_OnCompleteListener")
                 Log.d(TAG, "isSuccessful = ${it.isSuccessful}")
+
+                registerInProgress.value = false
+                if (it.isSuccessful) {
+                    NavoMobilityAppRouter.navigateTo(Screen.QuestionnaireScreen)
+                }
             }
             .addOnFailureListener {
                 Log.d(TAG, "Inside_OnFailureListener")
