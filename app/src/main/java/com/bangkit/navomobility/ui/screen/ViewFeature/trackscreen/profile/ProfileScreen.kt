@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bangkit.navomobility.R
 import com.bangkit.navomobility.ui.components.ButtonComponent
-import com.bangkit.navomobility.ui.screen.register.RegisterViewModel
+import com.bangkit.navomobility.ui.screen.signup.RegisterViewModel
 
 @Composable
 fun ProfileScreen(registerViewModel: RegisterViewModel) {
