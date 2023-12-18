@@ -18,4 +18,13 @@
     <string name="login_button">LOGIN</string>
     <string name="or">or</string>
     <string name="back">Back</string>
+    <string name="web_client_id">267166101682–98lk70kahlg11s0egfae3d3tp6k1gemk.apps.googleusercontent.com</string>
+    <string name="question">What places do you often visit?</string>
+    <string name="taman_hiburan">Taman Hiburan</string>
+    <string name="cagar_budaya">Cagar Budaya</string>
+    <string name="wisata_bahari">Wisata Bahari</string>
+    <string name="cagar_alam">Cagar Alam</string>
+    <string name="tempat_ibadah">Tempat Ibadah</string>
+    <string name="question_button">Let\'s Travel!</string>
+    <string name="logout">Logout</string>
 </resources>

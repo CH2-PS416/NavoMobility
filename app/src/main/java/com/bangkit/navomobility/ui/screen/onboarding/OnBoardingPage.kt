@@ -1,4 +1,4 @@
-package com.bangkit.navomobility.ui.screen.presentation.onboarding
+package com.bangkit.navomobility.ui.screen.onboarding
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image

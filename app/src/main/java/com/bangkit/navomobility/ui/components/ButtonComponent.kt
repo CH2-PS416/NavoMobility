@@ -22,10 +22,14 @@ import androidx.compose.ui.unit.sp
 fun ButtonComponent(
     value: String,
     onButtonClicked : () -> Unit,
+    goToScreen: (() -> Unit)? = null,
     isEnabled: Boolean
 ) {
     Button(
-        onClick = { onButtonClicked.invoke() },
+        onClick = {
+            onButtonClicked.invoke()
+            goToScreen?.invoke()
+        },
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(48.dp),

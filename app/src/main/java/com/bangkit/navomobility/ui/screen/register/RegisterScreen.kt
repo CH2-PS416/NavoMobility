@@ -1,6 +1,7 @@
-package com.bangkit.navomobility.ui.screen.login
+package com.bangkit.navomobility.ui.screen.register
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,7 +30,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -43,32 +43,36 @@ import com.bangkit.navomobility.ui.components.ClickableTextComponent
 import com.bangkit.navomobility.ui.components.EmailTextFieldComponent
 import com.bangkit.navomobility.ui.components.PasswordTextFieldComponent
 import com.bangkit.navomobility.ui.components.SocialMediaLogin
+import com.bangkit.navomobility.ui.components.TextFieldComponent
 import com.bangkit.navomobility.ui.navigation.NavoMobilityAppRouter
 import com.bangkit.navomobility.ui.navigation.Screen
 import com.bangkit.navomobility.ui.theme.NavoMobilityTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(
+fun RegisterScreen(
     onBackClick: () -> Unit,
-    loginViewModel: LoginViewModel
+    modifier: Modifier = Modifier,
+    registerViewModel: RegisterViewModel
 ) {
     var enteredEmail by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
     NavoMobilityTheme {
-        Box(
+        Box (
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ){
             Surface(
-                color = Color.White,
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxSize()
-                    .padding(28.dp)
+                    .padding(28.dp),
+                color = MaterialTheme.colorScheme.background
             ) {
                 Column(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.background),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     TopAppBar(
@@ -82,24 +86,31 @@ fun LoginScreen(
                         },
                         modifier = Modifier.fillMaxWidth()
                     )
-                    val logo: Painter = painterResource(id = R.drawable.login)
+                    val logo: Painter = painterResource(id = R.drawable.register)
                     Image(
                         painter = logo,
                         contentDescription = null,
-                        modifier = Modifier
+                        modifier = modifier
                             .size(248.dp, 165.dp)
-                            .padding(16.dp)
-                            .align(Alignment.CenterHorizontally),
+                            .padding(16.dp),
                         contentScale = ContentScale.Fit
                     )
                     Text(
-                        text = stringResource(id = R.string.login),
+                        text = stringResource(id = R.string.register),
                         style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-                        modifier = Modifier
+                        modifier = modifier
                             .fillMaxWidth()
                             .heightIn(min = 50.dp),
                         color = MaterialTheme.colorScheme.onBackground,
                         textAlign = TextAlign.Center
+                    )
+                    TextFieldComponent(
+                        labelValue = stringResource(id = R.string.name),
+                        painterResource(id = R.drawable.ic_person),
+                        onTextSelected = {
+                            registerViewModel.onEvent(RegisterUIEvent.NameChanged(it))
+                        },
+                        errorStatus = registerViewModel.registrationUIState.value.nameError
                     )
                     EmailTextFieldComponent(
                         onValueChanged = {
@@ -110,9 +121,9 @@ fun LoginScreen(
                             errorMessage = "Email harus berakhir dengan @gmail.com"
                         },
                         onTextSelected = {
-                            loginViewModel.onEvent(LoginUIEvent.EmailChanged(it))
+                            registerViewModel.onEvent(RegisterUIEvent.EmailChanged(it))
                         },
-                        errorStatus = loginViewModel.loginUIState.value.emailError
+                        errorStatus = registerViewModel.registrationUIState.value.emailError
                     )
                     errorMessage?.let { message ->
                         Text(
@@ -125,32 +136,32 @@ fun LoginScreen(
                         labelValue = stringResource(id = R.string.password),
                         painterResource(id = R.drawable.ic_password),
                         onTextSelected = {
-                            loginViewModel.onEvent(LoginUIEvent.PasswordChanged(it))
+                            registerViewModel.onEvent(RegisterUIEvent.PasswordChanged(it))
                         },
-                        errorStatus = loginViewModel.loginUIState.value.passwordError
+                        errorStatus = registerViewModel.registrationUIState.value.passwordError
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     ClickableTextComponent(
-                        initialText = stringResource(R.string.initial_text_1),
-                        linkText = stringResource(R.string.link_text_1),
+                        initialText = stringResource(R.string.initial_text_2),
+                        linkText = stringResource(R.string.link_text_2),
                         onClick = {
-                            NavoMobilityAppRouter.navigateTo(Screen.SignUpScreen)
+                            NavoMobilityAppRouter.navigateTo(Screen.LoginScreen)
                         }
                     )
-                    Spacer(modifier = Modifier.height(34.dp))
+                    Spacer(modifier = modifier.height(34.dp))
                     ButtonComponent(
-                        value = stringResource(id = R.string.login_button),
+                        value = stringResource(id = R.string.register_button),
                         onButtonClicked = {
-                            loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
+                            registerViewModel.onEvent(RegisterUIEvent.RegisterButtonClicked)
                         },
-                        isEnabled = loginViewModel.allValidationPassed.value
+                        isEnabled = registerViewModel.allValidationPassed.value
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = modifier.height(16.dp))
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = "or Login with",
+                            text = "or SignUp with",
                             style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.outlineVariant)
                         )
                         Spacer(modifier = Modifier.height(20.dp))
@@ -175,7 +186,7 @@ fun LoginScreen(
                     }
                 }
             }
-            if (loginViewModel.loginInProgress.value) {
+            if (registerViewModel.registerInProgress.value) {
                 CircularProgressIndicator()
             }
         }

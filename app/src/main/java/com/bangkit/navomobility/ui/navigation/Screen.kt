@@ -7,6 +7,9 @@ sealed class Screen() {
     object SignUpScreen : Screen()
     object LoginScreen : Screen()
     object OnBoardingScreen : Screen()
+    object ProfileScreen : Screen()
+    object HomeScreen : Screen()
+    object QuestionnaireScreen : Screen()
 }
 
 object NavoMobilityAppRouter {
