@@ -7,6 +7,7 @@ import androidx.compose.material.Shapes
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -116,7 +117,21 @@ fun NavoMobilityTheme(
     )
 }
 
+@Composable
+fun TravelAppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+    val colors = if (darkTheme) {
+        DarkColorPalette
+    } else {
+        LightColorPalette
+    }
 
+    androidx.compose.material.MaterialTheme(
+        colors = colors,
+        typography = Typography,
+        shapes = Shapes(),
+        content = content
+    )
+}
 @Composable
 fun BottomNavBarDemoTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
