@@ -1,4 +1,4 @@
-package com.bangkit.navomobility.ui.screen.ViewFeature.trackscreen
+package com.bangkit.navomobility.ui.screen.allscreen
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddLocationAlt
