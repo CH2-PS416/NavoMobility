@@ -22,7 +22,8 @@ import com.bangkit.navomobility.ui.components.QuestionnaireCard
 
 @Composable
 fun QuestionnaireScreen(
-    questionnaireViewModel: QuestionnaireViewModel
+    questionnaireViewModel: QuestionnaireViewModel,
+    goToHomeScreen: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -99,6 +100,7 @@ fun QuestionnaireScreen(
             onButtonClicked = {
                 questionnaireViewModel.onEvent(QuestionnaireUIEvent.QuestionButtonClicked)
             },
+            goToScreen = goToHomeScreen,
             isEnabled = questionnaireViewModel.allValidationPassed.value
         )
     }
@@ -109,6 +111,7 @@ fun QuestionnaireScreen(
 @Composable
 fun QuestionnaireScreenPreview() {
     QuestionnaireScreen(
-        questionnaireViewModel = QuestionnaireViewModel()
+        questionnaireViewModel = QuestionnaireViewModel(),
+        goToHomeScreen = {}
     )
 }

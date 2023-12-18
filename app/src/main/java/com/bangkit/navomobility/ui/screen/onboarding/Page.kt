@@ -1,4 +1,4 @@
-package com.bangkit.navomobility.ui.screen.presentation.onboarding
+package com.bangkit.navomobility.ui.screen.onboarding
 
 import androidx.annotation.DrawableRes
 import com.bangkit.navomobility.R

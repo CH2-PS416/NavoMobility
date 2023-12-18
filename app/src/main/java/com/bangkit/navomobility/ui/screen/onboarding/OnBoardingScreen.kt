@@ -1,4 +1,4 @@
-package com.bangkit.navomobility.ui.screen.presentation.onboarding
+package com.bangkit.navomobility.ui.screen.onboarding
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
