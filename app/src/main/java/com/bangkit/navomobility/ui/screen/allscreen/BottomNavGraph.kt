@@ -1,13 +1,13 @@
-package com.bangkit.navomobility.ui.screen.ViewFeature.trackscreen
+package com.bangkit.navomobility.ui.screen.allscreen
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.bangkit.navomobility.ui.screen.ViewFeature.trackscreen.JalanScreen.JalanScreen
-import com.bangkit.navomobility.ui.screen.ViewFeature.trackscreen.historyscreen.HistoryScreen
-import com.bangkit.navomobility.ui.screen.ViewFeature.trackscreen.homescreen.HomeScreen
-import com.bangkit.navomobility.ui.screen.ViewFeature.trackscreen.profile.ProfileScreen
+import com.bangkit.navomobility.ui.screen.allscreen.JalanScreen.JalanScreen
+import com.bangkit.navomobility.ui.screen.allscreen.historyscreen.HistoryScreen
+import com.bangkit.navomobility.ui.screen.allscreen.homescreen.HomeScreen
+import com.bangkit.navomobility.ui.screen.allscreen.profile.ProfileScreen
 import com.bangkit.navomobility.ui.screen.register.RegisterViewModel
 
 @Composable
