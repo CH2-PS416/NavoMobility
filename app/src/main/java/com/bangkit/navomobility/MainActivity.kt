@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.bangkit.navomobility.ui.screen.ViewFeature.trackscreen.MainScreen
+import com.bangkit.navomobility.ui.screen.allscreen.MainScreen
 import com.bangkit.navomobility.ui.theme.BottomNavBarDemoTheme
 import com.bangkit.navomobility.ui.theme.NavoMobilityTheme
 
@@ -17,6 +17,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContent {
+            BottomNavBarDemoTheme {
+                MainScreen()
+            }
             NavoMobilityTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -25,9 +28,6 @@ class MainActivity : ComponentActivity() {
                     NavoMobilityApp()
                 }
 
-                BottomNavBarDemoTheme {
-                    MainScreen()
-                }
 
             }
         }
