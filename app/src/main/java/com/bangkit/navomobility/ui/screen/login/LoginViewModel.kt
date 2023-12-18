@@ -3,12 +3,16 @@ package com.bangkit.navomobility.ui.screen.login
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.bangkit.navomobility.ui.navigation.NavoMobilityAppRouter
+import com.bangkit.navomobility.ui.navigation.Screen
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginViewModel() : ViewModel(){
 
     private var TAG = LoginViewModel::class.simpleName
     var loginUIState = mutableStateOf(LoginUIState())
     var allValidationPassed = mutableStateOf(false)
+    var loginInProgress = mutableStateOf(false)
 
     fun onEvent(event: LoginUIEvent) {
         when (event) {
@@ -16,27 +20,41 @@ class LoginViewModel() : ViewModel(){
                 loginUIState.value = loginUIState.value.copy(
                     email = event.email
                 )
-                validateDataWithRules()
-                printState()
             }
             is LoginUIEvent.PasswordChanged -> {
                 loginUIState.value = loginUIState.value.copy(
                     password = event.password
                 )
-                validateDataWithRules()
-                printState()
             }
             is LoginUIEvent.LoginButtonClicked -> {
                 login()
             }
         }
+        validateDataWithRules()
     }
 
     private fun login() {
-        Log.d(TAG, "inside_login")
-        printState()
 
-        validateDataWithRules()
+        loginInProgress.value = true
+
+        val email = loginUIState.value.email
+        val password = loginUIState.value.password
+        FirebaseAuth
+            .getInstance()
+            .signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+                Log.d(TAG, "Inside login success")
+                Log.d(TAG, "${it.isSuccessful}")
+
+                if (it.isSuccessful) {
+                    loginInProgress.value = false
+                    NavoMobilityAppRouter.navigateTo(Screen.QuestionnaireScreen)
+                }
+            }
+            .addOnFailureListener {
+                Log.d(TAG, "Inside login failure")
+                Log.d(TAG, "${it.localizedMessage}")
+            }
     }
 
     private fun validateDataWithRules() {
@@ -49,20 +67,11 @@ class LoginViewModel() : ViewModel(){
             password = loginUIState.value.password
         )
 
-        Log.d(TAG, "Inside_validateDataWithRules")
-        Log.d(TAG, "emailResult = $emailResult")
-        Log.d(TAG, "passwordResult = $passwordResult")
-
         loginUIState.value = loginUIState.value.copy(
             emailError = emailResult.status,
             passwordError = passwordResult.status
         )
 
         allValidationPassed.value = emailResult.status && passwordResult.status
-    }
-
-    private fun printState() {
-        Log.d(TAG, "inside_printState")
-        Log.d(TAG, loginUIState.value.toString())
     }
 }

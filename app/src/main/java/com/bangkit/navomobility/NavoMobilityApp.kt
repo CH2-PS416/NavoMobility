@@ -13,8 +13,8 @@ import com.bangkit.navomobility.ui.screen.login.LoginViewModel
 import com.bangkit.navomobility.ui.screen.onboarding.OnBoardingScreen
 import com.bangkit.navomobility.ui.screen.questionnaire.QuestionnaireScreen
 import com.bangkit.navomobility.ui.screen.questionnaire.QuestionnaireViewModel
-import com.bangkit.navomobility.ui.screen.signup.RegisterScreen
-import com.bangkit.navomobility.ui.screen.signup.RegisterViewModel
+import com.bangkit.navomobility.ui.screen.register.RegisterScreen
+import com.bangkit.navomobility.ui.screen.register.RegisterViewModel
 
 @Composable
 fun NavoMobilityApp() {
