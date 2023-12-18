@@ -20,6 +20,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 
+@Composable
+fun HomeScreen() {
+}
 
 enum class HomeTabs(
     val title: String,
