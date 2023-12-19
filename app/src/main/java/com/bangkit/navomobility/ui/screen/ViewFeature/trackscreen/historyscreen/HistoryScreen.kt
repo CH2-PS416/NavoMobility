@@ -21,7 +21,7 @@ fun HistoryScreen() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "HOME",
+            text = "History",
             fontSize = 24.sp, // Ganti dengan ukuran yang diinginkan
             fontWeight = FontWeight.Bold,
             color = Color.White
