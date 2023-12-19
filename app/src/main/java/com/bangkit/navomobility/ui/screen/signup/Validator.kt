@@ -1,6 +1,12 @@
-package com.bangkit.navomobility.ui.screen.login
+package com.bangkit.navomobility.ui.screen.signup
 
 object Validator {
+
+    fun validateName(name: String) : ValidationResult {
+        return ValidationResult(
+            (name.isEmpty() && name.length >= 3)
+        )
+    }
 
     fun validateEmail(email: String) : ValidationResult {
         return ValidationResult(

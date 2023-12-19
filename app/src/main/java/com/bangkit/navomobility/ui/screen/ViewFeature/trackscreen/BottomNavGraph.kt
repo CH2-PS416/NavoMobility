@@ -1,6 +1,7 @@
 package com.bangkit.navomobility.ui.screen.ViewFeature.trackscreen
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -8,7 +9,6 @@ import com.bangkit.navomobility.ui.screen.ViewFeature.trackscreen.JalanScreen.Ja
 import com.bangkit.navomobility.ui.screen.ViewFeature.trackscreen.historyscreen.HistoryScreen
 import com.bangkit.navomobility.ui.screen.ViewFeature.trackscreen.homescreen.HomeScreen
 import com.bangkit.navomobility.ui.screen.ViewFeature.trackscreen.profile.ProfileScreen
-import com.bangkit.navomobility.ui.screen.register.RegisterViewModel
 
 @Composable
 fun BottomNavGraph (navController: NavHostController){
@@ -29,9 +29,7 @@ fun BottomNavGraph (navController: NavHostController){
         }
 
         composable(route = BottomBarScreen.Profile.route){
-            ProfileScreen(
-                registerViewModel = RegisterViewModel()
-            )
+            ProfileScreen()
         }
 
     }
