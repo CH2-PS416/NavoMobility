@@ -25,11 +25,10 @@ class MainActivity : ComponentActivity() {
                     NavoMobilityApp()
                 }
 
-                BottomNavBarDemoTheme {
                     MainScreen()
                 }
 
             }
         }
     }
-}
+
